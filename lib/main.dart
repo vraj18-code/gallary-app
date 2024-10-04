@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 
-/// Entry point of the application.
 void main() {
   runApp(const ImageGalleryApp());
 }
 
-/// The main app widget which sets up the [MaterialApp].
+
 class ImageGalleryApp extends StatelessWidget {
   const ImageGalleryApp({Key? key}) : super(key: key);
 
@@ -24,7 +23,7 @@ class ImageGalleryApp extends StatelessWidget {
   }
 }
 
-/// The main page that displays the image gallery.
+
 class ImageGalleryPage extends StatefulWidget {
   const ImageGalleryPage({Key? key}) : super(key: key);
 
@@ -33,19 +32,18 @@ class ImageGalleryPage extends StatefulWidget {
 }
 
 class _ImageGalleryPageState extends State<ImageGalleryPage> {
-  /// Controller for handling scroll events.
+  
   final ScrollController _scrollController = ScrollController();
 
-  /// List to hold fetched image data.
+ 
   final List<dynamic> _images = [];
 
-  /// Page number for pagination.
   int _page = 1;
 
-  /// Flag to indicate if images are being loaded.
+
   bool _isLoading = false;
 
-  /// Query to specify the type of images (e.g., 'nature', 'cars').
+
   String _query = 'nature'; // Modify this to fetch specific images like 'cars', 'animals', etc.
 
   @override
@@ -53,7 +51,7 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
     super.initState();
     _fetchImages();
 
-    // Adding a listener to the scroll controller to detect when the user reaches the bottom.
+  
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -62,7 +60,6 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
     });
   }
 
-  /// Fetches images from the Pixabay API based on the query.
   Future<void> _fetchImages() async {
     // Prevent loading multiple times at once.
     if (_isLoading) return;
@@ -71,7 +68,6 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
       _isLoading = true;
     });
 
-    // Replace this with your own Pixabay API key.
     const String apiKey = '46238701-9bd442ac0e990369f9620d1d9';
     final String apiUrl =
         'https://pixabay.com/api/?key=$apiKey&q=$_query&image_type=photo&per_page=20&page=$_page';
@@ -110,10 +106,9 @@ class _ImageGalleryPageState extends State<ImageGalleryPage> {
                   onChanged: (String? newValue) {
                     setState(() {
                       _query = newValue!;
-                      _images.clear(); // Clear the previous results.
-                      _page = 1; // Reset the page number.
-                      _fetchImages(); // Fetch new images based on the selected category.
-                    });
+                      _images.clear(); 
+                      _page = 1; 
+                      _fetchImages();                     });
                   },
                   items: <String>['nature', 'cars', 'animals', 'technology']
                       .map<DropdownMenuItem<String>>((String value) {
